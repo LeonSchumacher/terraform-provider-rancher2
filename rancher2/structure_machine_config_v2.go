@@ -79,7 +79,7 @@ func flattenMachineConfigV2(d *schema.ResourceData, in *MachineConfigV2) error {
 			return err
 		}
 	case machineConfigV2NutanixKind:
-		err := d.Set("vsphere_config", flattenMachineConfigV2Nutanix(in.NutanixConfig))
+		err := d.Set("nutanix_config", flattenMachineConfigV2Nutanix(in.NutanixConfig))
 		if err != nil {
 			return err
 		}

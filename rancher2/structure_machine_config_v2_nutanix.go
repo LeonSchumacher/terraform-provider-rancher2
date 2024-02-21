@@ -19,14 +19,16 @@ type machineConfigV2Nutanix struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	CloudInit         string   `json:"cloudInit,omitempty" yaml:"cloudInit,omitempty"`
 	Cluster           string   `json:"cluster,omitempty" yaml:"cluster,omitempty"`
-	DiskSize          int      `json:"diskSize,omitempty" yaml:"diskSize,omitempty"`
+	DiskSize          string   `json:"diskSize,omitempty" yaml:"diskSize,omitempty"`
 	Project           string   `json:"project,omitempty" yaml:"project,omitempty"`
 	StorageContainer  string   `json:"storageContainer,omitempty" yaml:"storageContainer,omitempty"`
 	VmCategories      []string `json:"vmCategories,omitempty" yaml:"vmCategories,omitempty"`
-	VmCores           int      `json:"vmCores,omitempty" yaml:"vmCores,omitempty"`
+	VmCores           string   `json:"vmCores,omitempty" yaml:"vmCores,omitempty"`
+	VmCPUs            string   `json:"vmCPUs,omitempty" yaml:"vmCPUs,omitempty"`
+	VmCPUPassthrough  bool     `json:"vmCPUPassthrough,omitempty" yaml:"vmCPUPassthrough,omitempty"`
 	VmImage           string   `json:"vmImage,omitempty" yaml:"vmImage,omitempty"`
-	VmImageSize       int      `json:"vmImageSize,omitempty" yaml:"vmImageSize,omitempty"`
-	VmMemory          int      `json:"vmMemory,omitempty" yaml:"vmMemory,omitempty"`
+	VmImageSize       string   `json:"vmImageSize,omitempty" yaml:"vmImageSize,omitempty"`
+	VmMemory          string   `json:"vmMemory,omitempty" yaml:"vmMemory,omitempty"`
 	VmNetwork         []string `json:"vmNetwork,omitempty" yaml:"vmNetwork,omitempty"`
 	VmSerialPort      bool     `json:"vmSerialPort,omitempty" yaml:"vmSerialPort,omitempty"`
 }
@@ -52,6 +54,8 @@ func flattenMachineConfigV2Nutanix(in *MachineConfigV2Nutanix) []interface{} {
 	obj["storage_container"] = in.StorageContainer
 	obj["vm_categories"] = in.VmCategories
 	obj["vm_cores"] = in.VmCores
+	obj["vm_cpus"] = in.VmCPUs
+	obj["vm_cpu_passthrough"] = in.VmCPUPassthrough
 	obj["vm_image"] = in.VmImage
 	obj["vm_image_size"] = in.VmImageSize
 	obj["vm_memory"] = in.VmMemory
@@ -85,7 +89,7 @@ func expandMachineConfigV2Nutanix(p []interface{}, source *MachineConfigV2) *Mac
 	if v, ok := in["cluster"].(string); ok && len(v) > 0 {
 		obj.Cluster = v
 	}
-	if v, ok := in["disk_size"].(int); ok {
+	if v, ok := in["disk_size"].(string); ok {
 		obj.DiskSize = v
 	}
 	if v, ok := in["project"].(string); ok && len(v) > 0 {
@@ -97,16 +101,22 @@ func expandMachineConfigV2Nutanix(p []interface{}, source *MachineConfigV2) *Mac
 	if v, ok := in["vm_categories"].([]interface{}); ok && len(v) > 0 {
 		obj.VmCategories = toArrayString(v)
 	}
-	if v, ok := in["vm_cores"].(int); ok {
+	if v, ok := in["vm_cores"].(string); ok {
 		obj.VmCores = v
+	}
+	if v, ok := in["vm_cpus"].(string); ok {
+		obj.VmCPUs = v
+	}
+	if v, ok := in["vm_cpu_passthrough"].(bool); ok {
+		obj.VmCPUPassthrough = v
 	}
 	if v, ok := in["vm_image"].(string); ok && len(v) > 0 {
 		obj.VmImage = v
 	}
-	if v, ok := in["vm_image_size"].(int); ok {
+	if v, ok := in["vm_image_size"].(string); ok {
 		obj.VmImageSize = v
 	}
-	if v, ok := in["vm_memory"].(int); ok {
+	if v, ok := in["vm_memory"].(string); ok {
 		obj.VmMemory = v
 	}
 	if v, ok := in["vm_network"].([]interface{}); ok && len(v) > 0 {

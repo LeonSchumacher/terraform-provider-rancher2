@@ -4,7 +4,7 @@ import "github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 
 func machineConfigV2NutanixFields() map[string]*schema.Schema {
 	s := map[string]*schema.Schema{
-		"cloudInit": {
+		"cloud_init": {
 			Type:     schema.TypeString,
 			Required: true,
 		},
@@ -12,49 +12,57 @@ func machineConfigV2NutanixFields() map[string]*schema.Schema {
 			Type:     schema.TypeString,
 			Required: true,
 		},
-		"diskSize": {
-			Type:     schema.TypeInt,
+		"disk_size": {
+			Type:     schema.TypeString,
 			Required: true,
 		},
 		"project": {
 			Type:     schema.TypeString,
 			Required: true,
 		},
-		"storageContainer": {
+		"storage_container": {
 			Type:     schema.TypeString,
 			Required: true,
 		},
-		"vmCategories": {
+		"vm_categories": {
 			Type:     schema.TypeList,
-			Required: false,
+			Optional: true,
 			Elem: &schema.Schema{
 				Type: schema.TypeString,
 			},
 		},
-		"vmCores": {
-			Type:     schema.TypeInt,
-			Required: true,
-		},
-		"vmImage": {
+		"vm_cores": {
 			Type:     schema.TypeString,
 			Required: true,
 		},
-		"vmImageSize": {
-			Type:     schema.TypeInt,
+		"vm_cpus": {
+			Type:     schema.TypeString,
 			Required: true,
 		},
-		"vmMemory": {
-			Type:     schema.TypeInt,
+		"vm_cpu_passthrough": {
+			Type:     schema.TypeBool,
 			Required: true,
 		},
-		"vmNetwork": {
+		"vm_image": {
+			Type:     schema.TypeString,
+			Required: true,
+		},
+		"vm_image_size": {
+			Type:     schema.TypeString,
+			Required: true,
+		},
+		"vm_memory": {
+			Type:     schema.TypeString,
+			Required: true,
+		},
+		"vm_network": {
 			Type:     schema.TypeList,
 			Required: true,
 			Elem: &schema.Schema{
 				Type: schema.TypeString,
 			},
 		},
-		"vmSerialPort": {
+		"vm_serial_port": {
 			Type:     schema.TypeBool,
 			Required: true,
 		},
