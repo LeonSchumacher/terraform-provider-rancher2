@@ -26,6 +26,7 @@ type machineConfigV2 struct {
 	LinodeConfig        *MachineConfigV2Linode        `json:"linodeConfig,omitempty" yaml:"linodeConfig,omitempty"`
 	OpenstackConfig     *MachineConfigV2Openstack     `json:"openstackConfig,omitempty" yaml:"openstackConfig,omitempty"`
 	VmwarevsphereConfig *MachineConfigV2Vmwarevsphere `json:"vmwarevsphereConfig,omitempty" yaml:"vmwarevsphereConfig,omitempty"`
+	NutanixConfig       *MachineConfigV2Nutanix       `json:"nutanixConfig,omitempty" yaml:"nutanixConfig,omitempty"`
 }
 
 type MachineConfigV2 struct {
@@ -74,6 +75,11 @@ func flattenMachineConfigV2(d *schema.ResourceData, in *MachineConfigV2) error {
 		}
 	case machineConfigV2VmwarevsphereKind:
 		err := d.Set("vsphere_config", flattenMachineConfigV2Vmwarevsphere(in.VmwarevsphereConfig))
+		if err != nil {
+			return err
+		}
+	case machineConfigV2NutanixKind:
+		err := d.Set("vsphere_config", flattenMachineConfigV2Nutanix(in.NutanixConfig))
 		if err != nil {
 			return err
 		}
@@ -143,6 +149,8 @@ func expandMachineConfigV2(in *schema.ResourceData) *MachineConfigV2 {
 	if v, ok := in.Get("vsphere_config").([]interface{}); ok && len(v) > 0 {
 		obj.VmwarevsphereConfig = expandMachineConfigV2Vmwarevsphere(v, obj)
 	}
-
+	if v, ok := in.Get("nutanix_config").([]interface{}); ok && len(v) > 0 {
+		obj.NutanixConfig = expandMachineConfigV2Nutanix(v, obj)
+	}
 	return obj
 }

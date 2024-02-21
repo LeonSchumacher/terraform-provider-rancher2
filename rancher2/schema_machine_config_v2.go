@@ -101,6 +101,15 @@ func machineConfigV2Fields() map[string]*schema.Schema {
 				Schema: machineConfigV2VmwarevsphereFields(),
 			},
 		},
+		"nutanix_config": {
+			Type:          schema.TypeList,
+			MaxItems:      1,
+			Optional:      true,
+			ConflictsWith: getConflicts(allMachineDriverConfigFields, "nutanix_config"),
+			Elem: &schema.Resource{
+				Schema: machineConfigV2NutanixFields(),
+			},
+		},
 		"resource_version": {
 			Type:     schema.TypeString,
 			Computed: true,
