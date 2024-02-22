@@ -24,11 +24,11 @@ type machineConfigV2Nutanix struct {
 	StorageContainer  string   `json:"storageContainer,omitempty" yaml:"storageContainer,omitempty"`
 	VmCategories      []string `json:"vmCategories,omitempty" yaml:"vmCategories,omitempty"`
 	VmCores           string   `json:"vmCores,omitempty" yaml:"vmCores,omitempty"`
-	VmCPUs            string   `json:"vmCPUs,omitempty" yaml:"vmCPUs,omitempty"`
-	VmCPUPassthrough  bool     `json:"vmCPUPassthrough,omitempty" yaml:"vmCPUPassthrough,omitempty"`
+	VmCPUs            string   `json:"vmCpus,omitempty" yaml:"vmCpus,omitempty"`
+	VmCPUPassthrough  bool     `json:"vmCpuPassthrough,omitempty" yaml:"vmCpuPassthrough,omitempty"`
 	VmImage           string   `json:"vmImage,omitempty" yaml:"vmImage,omitempty"`
 	VmImageSize       string   `json:"vmImageSize,omitempty" yaml:"vmImageSize,omitempty"`
-	VmMemory          string   `json:"vmMemory,omitempty" yaml:"vmMemory,omitempty"`
+	VmMemory          string   `json:"vmMem,omitempty" yaml:"vmMem,omitempty"`
 	VmNetwork         []string `json:"vmNetwork,omitempty" yaml:"vmNetwork,omitempty"`
 	VmSerialPort      bool     `json:"vmSerialPort,omitempty" yaml:"vmSerialPort,omitempty"`
 }
