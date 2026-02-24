@@ -11,6 +11,17 @@ import (
 	managementClient "github.com/rancher/rancher/pkg/client/generated/management/v3"
 )
 
+const (
+	amazonec2ConfigDriver     = "amazonec2"
+	azureConfigDriver         = "azure"
+	digitaloceanConfigDriver  = "digitalocean"
+	harvesterConfigDriver     = "harvester"
+	linodeConfigDriver        = "linode"
+	nutanixConfigDriver       = "nutanix"
+	openstackConfigDriver     = "openstack"
+	vmwarevsphereConfigDriver = "vmwarevsphere"
+)
+
 func resourceRancher2CloudCredential() *schema.Resource {
 	return &schema.Resource{
 		Create: resourceRancher2CloudCredentialCreate,
@@ -130,6 +141,8 @@ func resourceRancher2CloudCredentialUpdate(d *schema.ResourceData, meta interfac
 		update["harvestercredentialConfig"] = expandCloudCredentialHarvester(d.Get("harvester_credential_config").([]interface{}))
 	case linodeConfigDriver:
 		update["linodecredentialConfig"] = expandCloudCredentialLinode(d.Get("linode_credential_config").([]interface{}))
+	case nutanixConfigDriver:
+		update["nutanixcredentialConfig"] = expandCloudCredentialNutanix(d.Get("nutanix_credential_config").([]interface{}))
 	case openstackConfigDriver:
 		update["openstackcredentialConfig"] = expandCloudCredentialOpenstack(d.Get("openstack_credential_config").([]interface{}))
 	case s3ConfigDriver:
